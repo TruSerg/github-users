@@ -33,7 +33,7 @@ const InputSearch = () => {
     setInputSearchUserName(e.target.value);
   };
 
-  const getUserName = useCallback(async () => {
+  const getUserName = async () => {
     setIsLoading(true);
 
     try {
@@ -49,9 +49,9 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  }, [inputSearchUserName, error]);
+  };
 
-  const getUserRepos = useCallback(async () => {
+  const getUserRepos = async () => {
     setIsLoading(true);
 
     try {
@@ -66,14 +66,14 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  }, [inputSearchUserName]);
+  };
 
   useEffect(() => {
     setIsUserDataLoaded(true);
 
     getUserName();
     getUserRepos();
-  }, [getUserName, getUserRepos]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
