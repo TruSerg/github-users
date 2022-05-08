@@ -49,7 +49,7 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  }, [setUserData, inputSearchUserName, error]);
+  }, [inputSearchUserName, error]);
 
   const getUserRepos = useCallback(async () => {
     setIsLoading(true);
