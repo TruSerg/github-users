@@ -73,7 +73,7 @@ const InputSearch = () => {
 
     getUserName();
     getUserRepos();
-  }, []);
+  }, [getUserName, getUserRepos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
