@@ -18,6 +18,7 @@ const InputSearch = () => {
     followers,
     following,
     avatar_url,
+    public_repos,
   }) => {
     setUser({
       name,
@@ -26,6 +27,7 @@ const InputSearch = () => {
       followers,
       following,
       avatar: avatar_url,
+      repos: public_repos,
     });
   };
 
@@ -56,7 +58,9 @@ const InputSearch = () => {
 
     try {
       await axios
-        .get(`https://api.github.com/users/${inputSearchUserName}/repos`)
+        .get(
+          `https://api.github.com/users/${inputSearchUserName}/repos?per_page=100`
+        )
         .then((res) => {
           setUserReposList(res.data);
         });
