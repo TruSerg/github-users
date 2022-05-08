@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 import InputSearchLayout from "./inputSearchLayout";
@@ -33,7 +33,7 @@ const InputSearch = () => {
     setInputSearchUserName(e.target.value);
   };
 
-  const getUserName = async () => {
+  const getUserName = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -49,9 +49,9 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [setUserData]);
 
-  const getUserRepos = async () => {
+  const getUserRepos = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -66,14 +66,14 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     setIsUserDataLoaded(true);
 
     getUserName();
     getUserRepos();
-  }, [getUserName, getUserRepos]);
+  }, [getUserName, getUserName]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
