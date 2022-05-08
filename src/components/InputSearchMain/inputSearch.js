@@ -49,7 +49,7 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  }, [setUserData]);
+  }, [setUserData, inputSearchUserName, error]);
 
   const getUserRepos = useCallback(async () => {
     setIsLoading(true);
@@ -66,14 +66,14 @@ const InputSearch = () => {
     }
 
     setIsLoading(false);
-  }, []);
+  }, [inputSearchUserName]);
 
   useEffect(() => {
     setIsUserDataLoaded(true);
 
     getUserName();
     getUserRepos();
-  }, [getUserName, getUserName]);
+  }, [getUserName, getUserRepos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
