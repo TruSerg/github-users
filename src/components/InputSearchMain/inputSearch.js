@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import InputSearchLayout from "./inputSearchLayout";
@@ -6,10 +6,14 @@ import InputSearchLayout from "./inputSearchLayout";
 const InputSearch = () => {
   const [inputSearchUserName, setInputSearchUserName] = useState("");
   const [user, setUser] = useState({});
-  const [userReposList, setUserReposList] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
+  const [userReposList, setUserReposList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reposPerPage] = useState(4);
+
+  const BASE_URL = "https://api.github.com";
 
   const setUserData = ({
     name,
@@ -40,7 +44,7 @@ const InputSearch = () => {
 
     try {
       await axios
-        .get(`https://api.github.com/users/${inputSearchUserName}`)
+        .get(`${BASE_URL}/users/${inputSearchUserName}`)
         .then((res) => {
           res.data.message ? setError(error.message) : setUserData(res.data);
           setError(null);
@@ -54,30 +58,28 @@ const InputSearch = () => {
   };
 
   const getUserRepos = async () => {
-    setIsLoading(true);
-
     try {
       await axios
         .get(
-          `https://api.github.com/users/${inputSearchUserName}/repos?per_page=100`
+          `${BASE_URL}/users/${user.login}/repos?per_page=${reposPerPage}&page=${currentPage}`
         )
         .then((res) => {
           setUserReposList(res.data);
         });
     } catch (error) {
       setError(error.message);
-      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   useEffect(() => {
     setIsUserDataLoaded(true);
 
     getUserName();
-    getUserRepos();
   }, []);
+
+  useEffect(() => {
+    getUserRepos();
+  }, [currentPage, reposPerPage, userReposList]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,9 +94,6 @@ const InputSearch = () => {
   return (
     <div>
       <InputSearchLayout
-        error={error}
-        isLoading={isLoading}
-        isUserDataLoaded={isUserDataLoaded}
         inputSearchUserName={inputSearchUserName}
         name={user.name}
         login={user.login}
@@ -102,9 +101,16 @@ const InputSearch = () => {
         followers={user.followers}
         following={user.following}
         avatar={user.avatar}
+        repos={user.repos}
+        error={error}
+        isLoading={isLoading}
+        isUserDataLoaded={isUserDataLoaded}
         userReposList={userReposList}
         handleChange={handleUserSearch}
         handleSubmit={handleSubmit}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        reposPerPage={reposPerPage}
       />
     </div>
   );

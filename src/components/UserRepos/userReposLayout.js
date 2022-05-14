@@ -10,40 +10,37 @@ const UserReposLayout = ({
   classes,
   indexOfFirstRepo,
   userReposList,
-  setCurrentPage,
-  currentReposList,
   currentQuantityRepos,
+  setCurrentPage,
   totalPages,
+  repos,
 }) => {
   return (
     <div className={classes.reposWrapper}>
-      {userReposList.length > 1 && (
-        <h3 className={classes.reposTitle}>
-          Repositories ({userReposList.length})
-        </h3>
-      )}
-      {userReposList.length ? (
-        currentReposList.map(({ id, name, description, html_url }) => {
-          return (
-            <div className={classes.userRepo} key={id}>
-              <a target="_blank" rel="noreferrer" href={html_url}>
-                <p className={classes.repoName}>{name}</p>
-              </a>
-              <p className={classes.repoDescription}>{description}</p>
+      {repos ? (
+        <>
+          <h3 className={classes.reposTitle}>Repositories ({repos})</h3>
+          {userReposList.map(({ id, name, description, html_url }) => {
+            return (
+              <div className={classes.userRepo} key={id}>
+                <a target="_blank" rel="noreferrer" href={html_url}>
+                  <p className={classes.repoName}>{name}</p>
+                </a>
+                <p className={classes.repoDescription}>{description}</p>
+              </div>
+            );
+          })}
+          {repos > 4 && (
+            <div className={classes.paginationArea}>
+              <span className={classes.paginationData}>{`${
+                indexOfFirstRepo + 1
+              } - ${currentQuantityRepos} of ${repos} items`}</span>
+              <Pagination pages={totalPages} currentPage={setCurrentPage} />
             </div>
-          );
-        })
+          )}
+        </>
       ) : (
         <RepositoriesIsEmptyArea />
-      )}
-
-      {userReposList.length > 4 && (
-        <div className={classes.paginationArea}>
-          <span className={classes.paginationData}>{`${
-            indexOfFirstRepo + 1
-          } - ${currentQuantityRepos} of ${userReposList.length} items`}</span>
-          <Pagination pages={totalPages} currentPage={setCurrentPage} />
-        </div>
       )}
     </div>
   );
@@ -60,20 +57,11 @@ UserReposLayout.propTypes = {
       following: PropTypes.number,
     })
   ),
-  currentReposList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      html_url: PropTypes.string.isRequired,
-    })
-  ),
   indexOfFirstRepo: PropTypes.number.isRequired,
-  indexOfLastRepo: PropTypes.number.isRequired,
   currentQuantityRepos: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
-  setCurrentPage: PropTypes.func.isRequired,
+  repos: PropTypes.number,
 };
 
 export default withStyles(styles)(UserReposLayout);

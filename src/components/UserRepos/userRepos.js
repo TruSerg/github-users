@@ -1,34 +1,33 @@
-import { useState } from "react";
-
 import UserReposLayout from "./userReposLayout";
 
-const UserRepos = ({ userReposList }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [reposPerPage] = useState(4);
-
+const UserRepos = ({
+  userReposList,
+  currentPage,
+  setCurrentPage,
+  paginate,
+  reposPerPage,
+  repos,
+  isLoading,
+}) => {
   const indexOfLastRepo = currentPage * reposPerPage;
 
   const indexOfFirstRepo = indexOfLastRepo - reposPerPage;
 
-  const currentReposList = userReposList.slice(
-    indexOfFirstRepo,
-    indexOfLastRepo
-  );
+  const currentQuantityRepos = indexOfFirstRepo + 1 * userReposList.length;
 
-  const currentQuantityRepos = indexOfFirstRepo + 1 * currentReposList.length;
-
-  const totalPages = Math.ceil(userReposList.length / reposPerPage);
+  const totalPages = Math.ceil(repos / reposPerPage);
 
   return (
     <UserReposLayout
-      indexOfLastRepo={indexOfLastRepo}
       indexOfFirstRepo={indexOfFirstRepo}
       userReposList={userReposList}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
-      currentReposList={currentReposList}
+      paginate={paginate}
       currentQuantityRepos={currentQuantityRepos}
       totalPages={totalPages}
+      repos={repos}
+      isLoading={isLoading}
     />
   );
 };

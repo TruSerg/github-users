@@ -1,8 +1,8 @@
 import { withStyles } from "@mui/styles";
+import PropTypes from "prop-types";
 
 import UserData from "../UserData/userData";
 import UserRepos from "../UserRepos/userRepos";
-import PropTypes from "prop-types";
 
 import Loader from "../../commonComponents/Loader";
 import StartSearchingArea from "../../commonComponents/StartSearchingArea/startSearchingArea";
@@ -24,9 +24,13 @@ const InputSearchLayout = ({
   followers,
   following,
   avatar,
+  repos,
   userReposList,
   handleChange,
   handleSubmit,
+  currentPage,
+  reposPerPage,
+  setCurrentPage,
 }) => {
   return (
     <>
@@ -71,7 +75,13 @@ const InputSearchLayout = ({
                     following={following}
                     avatar={avatar}
                   />
-                  <UserRepos userReposList={userReposList} />
+                  <UserRepos
+                    userReposList={userReposList}
+                    repos={repos}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    reposPerPage={reposPerPage}
+                  />
                 </div>
               )}
             </>
@@ -91,6 +101,7 @@ InputSearchLayout.propTypes = {
       avatar: PropTypes.string,
       followers: PropTypes.number,
       following: PropTypes.number,
+      repos: PropTypes.number,
     })
   ),
   error: PropTypes.string,
