@@ -104,11 +104,15 @@ InputSearchLayout.propTypes = {
       repos: PropTypes.number,
     })
   ),
+  inputSearchUserName: PropTypes.string.isRequired,
   error: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   isUserDataLoaded: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  reposPerPage: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(InputSearchLayout);

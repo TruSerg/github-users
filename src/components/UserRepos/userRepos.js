@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import UserReposLayout from "./userReposLayout";
 
 const UserRepos = ({
@@ -32,4 +34,4 @@ const UserRepos = ({
   );
 };
 
-export default UserRepos;
+export default memo(UserRepos);

@@ -30,7 +30,7 @@ const UserReposLayout = ({
               </div>
             );
           })}
-          {repos > 4 && (
+          {repos > 3 && (
             <div className={classes.paginationArea}>
               <span className={classes.paginationData}>{`${
                 indexOfFirstRepo + 1
@@ -55,13 +55,14 @@ UserReposLayout.propTypes = {
       avatar: PropTypes.string,
       followers: PropTypes.number,
       following: PropTypes.number,
+      repos: PropTypes.number,
     })
   ),
   indexOfFirstRepo: PropTypes.number.isRequired,
   currentQuantityRepos: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
-  repos: PropTypes.number,
 };
 
 export default withStyles(styles)(UserReposLayout);

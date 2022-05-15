@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { memo } from "react";
 import axios from "axios";
 
 import InputSearchLayout from "./inputSearchLayout";
@@ -35,11 +36,7 @@ const InputSearch = () => {
     });
   };
 
-  const handleUserSearch = (e) => {
-    setInputSearchUserName(e.target.value);
-  };
-
-  const getUserName = async () => {
+  const getGitHubUser = async () => {
     setIsLoading(true);
 
     try {
@@ -57,7 +54,13 @@ const InputSearch = () => {
     setIsLoading(false);
   };
 
-  const getUserRepos = async () => {
+  useEffect(() => {
+    setIsUserDataLoaded(true);
+
+    getGitHubUser();
+  }, []);
+
+  const getGitHubUserRepos = async () => {
     try {
       await axios
         .get(
@@ -72,20 +75,18 @@ const InputSearch = () => {
   };
 
   useEffect(() => {
-    setIsUserDataLoaded(true);
-
-    getUserName();
-  }, []);
-
-  useEffect(() => {
-    getUserRepos();
+    getGitHubUserRepos();
   }, [currentPage, reposPerPage, userReposList]);
+
+  const handleUserSearch = (e) => {
+    setInputSearchUserName(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    getUserName();
-    getUserRepos();
+    getGitHubUser();
+    getGitHubUserRepos();
 
     setInputSearchUserName("");
     setIsUserDataLoaded(false);
@@ -116,4 +117,4 @@ const InputSearch = () => {
   );
 };
 
-export default InputSearch;
+export default memo(InputSearch);
