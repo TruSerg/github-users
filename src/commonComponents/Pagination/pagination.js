@@ -11,7 +11,6 @@ const Pagination = ({ pages, currentPage }) => {
   }
 
   const [currentButton, setCurrentButton] = useState(1);
-
   const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
 
   useEffect(() => {

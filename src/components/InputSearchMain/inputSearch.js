@@ -48,6 +48,7 @@ const InputSearch = () => {
         });
     } catch (error) {
       setError(error.message);
+
       setIsLoading(false);
     }
 

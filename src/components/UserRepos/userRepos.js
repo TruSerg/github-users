@@ -9,7 +9,6 @@ const UserRepos = ({
   paginate,
   reposPerPage,
   repos,
-  isLoading,
 }) => {
   const indexOfLastRepo = currentPage * reposPerPage;
 
@@ -29,7 +28,6 @@ const UserRepos = ({
       currentQuantityRepos={currentQuantityRepos}
       totalPages={totalPages}
       repos={repos}
-      isLoading={isLoading}
     />
   );
 };

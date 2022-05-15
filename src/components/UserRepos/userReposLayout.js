@@ -2,6 +2,7 @@ import { withStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 
 import Pagination from "../../commonComponents/Pagination/pagination";
+import Loader from "../../commonComponents/Loader";
 import RepositoriesIsEmptyArea from "../../commonComponents/RepositoriesIsEmptyArea/repositoriesIsEmptyArea";
 
 import styles from "./styles";
